@@ -1,0 +1,78 @@
+body{
+  background-color: #333333;
+  color: #dddddd;
+}
+
+.grid{
+  display:grid;
+  grid-template-rows: repeat(auto, 4) ;
+}
+
+.grid-container-2-col {
+  display: inline-grid;
+  grid-template-columns: 2fr 8fr;
+  grid-auto-rows: minmax(0.5em, auto);
+  /*background-color: #444444;*/
+  padding: 2px;
+  gap: 2px;
+  font-size: large;
+  align-content: start;
+  width: 100%;
+}
+
+.grid-container-3-col {
+  display: inline-grid;
+  grid-template-columns: 2fr 1fr 3fr;
+  grid-auto-rows: minmax(1em, auto);
+  background-color: #444444;
+  padding: 1em;
+  font-size: large;
+  align-content: start;
+  width: 100%;
+}
+
+.grid-item {
+  background-color: #333333;
+  padding: 1em;
+  text-align: center;
+  font-size: smaller;
+  text-align: left;
+  
+}
+
+.toggle_button{
+  background-color: #555555;
+  color: white;
+  width: 100%;
+}
+
+.grid-container-2-col-equal{
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-auto-rows: minmax(0.5em, auto);
+  /*background-color: #444444;*/
+  padding: 2px;
+  gap: 2px;
+  font-size: large;
+  align-content: start;
+  width: 100%;
+}
+
+.style_connection_buttons{
+  background-color: #555555;
+  color: white;
+  width: 100%;
+  padding: 1em;
+}
+
+.style_console_textarea{
+  background-color: #555555;
+  color: white;
+  width: 100%;
+  padding: 1em;
+}
+
+.style_input_text{
+  background-color: #555555;
+  color: white;
+}

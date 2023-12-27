@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbage Run Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid">
+            <h1>Carbage Run Equipment Controller</h1>
+            
+            <div>
+                <h2>Server Connection</h2>
+                <div class="grid-container-2-col">
+                    <label for="server_address">Server Address</label>
+                    <input class="style_input_text" type="text" name="server_address" id="server_address">
+
+                    <label for="server_port">Server Port</label>
+                    <input class="style_input_text" type="text" name="server_port" id="server_port">
+                </div>
+                <div class="grid-container-2-col-equal">
+                    <button class="style_connection_buttons" id="connect_button" onclick="onClickedConnect()">Connect</button>
+                    <button class="style_connection_buttons" id="disconnect_button" onclick="onClickedDisconnect()">Disconnect</button>
+                </div>
+                <Textarea class="style_console_textarea" id="console_textarea" placeholder="placeholder"></Textarea>
+            </div>
+
+            <div>
+                <h2>Lights Configuration</h2>
+                <div class="grid-container-3-col">
+                    <div class="grid-item">Light</div>
+                    <div class="grid-item">current state</div>
+                    <div class="grid-item">control</div>  
+                    
+                    <div class="grid-item">Front flasher bar</div>
+                    <div class="grid-item" id="state_front_flasher">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div> 
+                    
+                    <div class="grid-item">Back flasher bar</div>
+                    <div class="grid-item" id="state_back_flasher">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">Front grill flashers</div>
+                    <div class="grid-item" id="state_grill_flasher">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div>
+
+                    <div class="grid-item">Beacon left</div>
+                    <div class="grid-item" id="state_beacon_left">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div>
+
+                    <div class="grid-item">Beacon right</div>
+                    <div class="grid-item" id="state_beacon_right">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div>
+
+                    <div class="grid-item">Work lights front</div>
+                    <div class="grid-item" id="state_work_lights_front">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div>
+
+                    <div class="grid-item">Work lights back</div>
+                    <div class="grid-item" id="state_work_lights_back">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="lightsConfigChanged()">toggle</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <h2>Horns Configuration</h2>
+                <div class="grid-container-3-col">
+                    <div class="grid-item">Horn</div>
+                    <div class="grid-item">current state</div>
+                    <div class="grid-item">control</div>  
+                    
+                    <div class="grid-item">THW low tone</div>
+                    <div class="grid-item" id="state_thw_low_tone">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">THW high tone</div>
+                    <div class="grid-item" id="state_thw_high_tone">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">quadruple horn</div>
+                    <div class="grid-item" id="state_quadruple_horn">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 1</div>
+                    <div class="grid-item" id="state_mel_horn_1">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 2</div>
+                    <div class="grid-item" id="state_mel_horn_2">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 3</div>
+                    <div class="grid-item" id="state_mel_horn_3">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 4</div>
+                    <div class="grid-item" id="state_mel_horn_4">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 5</div>
+                    <div class="grid-item" id="state_mel_horn_5">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                    <div class="grid-item">melodie horn 6</div>
+                    <div class="grid-item" id="state_mel_horn_6">off</div>
+                    <div class="grid-item">
+                        <button class="toggle_button" onclick="hornsConfigChanged()">toggle</button>
+                    </div> 
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+      <script src="./main.js"></script>
+</body>
+</html>
