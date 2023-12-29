@@ -3,20 +3,19 @@
     --secondary-color: #444444;
     --accent-color: #666666;
     --font-color: #eeeeee;
-  }
+    --activ-color : rgb(28, 104, 10); 
+    --activ-font-color : var(--font-color);
+    --off-color : rgb(92, 9, 9); 
+    --off-font-color : var(--font-color);
+}
 
-body{
+body {
     background-color: var(--primary-color);
     color: var(--font-color);
     font-family: Arial;
-  }
-  
-  .grid{
-    display:grid;
-    grid-template-rows: repeat(auto, 4) ;
-  }
-  
-  .grid-container-2-col {
+}
+
+.style_grid_container_2_col {
     display: inline-grid;
     grid-template-columns: 2fr 8fr;
     grid-auto-rows: minmax(0.5em, auto);
@@ -24,58 +23,70 @@ body{
     gap: 2px;
     font-size: medium;
     align-content: center;
-  }
-  
-  .grid-container-3-col {
-    @extend .grid-container-2-col;
+}
+
+.style_grid_container_3_col {
+    @extend .style_grid_container_2_col;
     grid-template-columns: 2fr 1fr 3fr;
     font-size: medium;
     align-content: center;
-  }
-  
-  .grid-item {
+}
+
+.style_grid_item {
     background-color: var(--secondary-color);
     padding: 1em;
     text-align: center;
     font-size: small;
     text-align: center;
-  }
-  
-  .base_button{
+}
+
+.base_button {
     background-color: var(--accent-color);
     color: var(--font-color);
-  }
+}
 
-  .toggle_button{
+.style_toggle_button{
     @extend .base_button;
-  }
-  
-  .grid-container-2-col-equal{
-    @extend .grid-container-2-col;
+}
+
+.style_activ_state{
+    @extend .style_grid_item;
+    color: var(--activ-font-color);
+    background-color: var(--activ-color);
+}
+
+.style_off_state{
+    @extend .style_grid_item;
+    color: var(--off-font-color);
+    background-color: var(--off-color);
+}
+
+.style_grid_container_2_col_equal {
+    @extend .style_grid_container_2_col;
     grid-template-columns: auto auto;
-  }
-  
-  .style_refresh_buttons{
+}
+
+.style_refresh_buttons {
     @extend .base_button;
-  }
+}
 
-  .style_console_textarea{
+.style_console_textarea {
     color: var(--font-color);
     background-color: var(--accent-color);
-  }
-  
-  .style_input_text{
+}
+
+.style_input_text {
     background-color: var(--accent-color);
     color: var(--font-color);
-  }
+}
 
-  .style_fieldset_layer_1{
+.style_fieldset_layer_1 {
     margin-bottom: 1em;
     font-size: large;
-  }
+}
 
-  .style_fieldset_layer_2{
+.style_fieldset_layer_2 {
     @extend .style_fieldset_layer_1;
     margin-bottom: 0em;
     font-size: medium;
-  }
+}

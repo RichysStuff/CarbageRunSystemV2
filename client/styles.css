@@ -3,6 +3,10 @@
   --secondary-color: #444444;
   --accent-color: #666666;
   --font-color: #eeeeee;
+  --activ-color: rgb(28, 104, 10);
+  --activ-font-color: var(--font-color);
+  --off-color: rgb(92, 9, 9);
+  --off-font-color: var(--font-color);
 }
 
 body {
@@ -11,12 +15,7 @@ body {
   font-family: Arial;
 }
 
-.grid {
-  display: grid;
-  grid-template-rows: repeat(auto, 4);
-}
-
-.grid-container-2-col, .grid-container-2-col-equal, .grid-container-3-col {
+.style_grid_container_2_col, .style_grid_container_2_col_equal, .style_grid_container_3_col {
   display: inline-grid;
   grid-template-columns: 2fr 8fr;
   grid-auto-rows: minmax(0.5em, auto);
@@ -26,13 +25,13 @@ body {
   align-content: center;
 }
 
-.grid-container-3-col {
+.style_grid_container_3_col {
   grid-template-columns: 2fr 1fr 3fr;
   font-size: medium;
   align-content: center;
 }
 
-.grid-item {
+.style_grid_item, .style_off_state, .style_activ_state {
   background-color: var(--secondary-color);
   padding: 1em;
   text-align: center;
@@ -40,12 +39,22 @@ body {
   text-align: center;
 }
 
-.base_button, .style_refresh_buttons, .toggle_button {
+.base_button, .style_refresh_buttons, .style_toggle_button {
   background-color: var(--accent-color);
   color: var(--font-color);
 }
 
-.grid-container-2-col-equal {
+.style_activ_state {
+  color: var(--activ-font-color);
+  background-color: var(--activ-color);
+}
+
+.style_off_state {
+  color: var(--off-font-color);
+  background-color: var(--off-color);
+}
+
+.style_grid_container_2_col_equal {
   grid-template-columns: auto auto;
 }
 

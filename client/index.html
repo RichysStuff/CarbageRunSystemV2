@@ -15,17 +15,19 @@
         <fieldset class="style_fieldset_layer_1">
             <legend>Server Connection</legend>
 
-            <div class="grid-container-2-col">
+            <div class="style_grid_container_2_col">
                 <label for="server_address" style="font-size: small;">Server Address</label>
-                <input class="style_input_text" type="text" name="server_address" id="server_address">
+                <input class="style_input_text" type="text" name="server_address" id="server_address"
+                    style="font-size: small;">
 
                 <label for="server_port" style="font-size: small;">Server Port</label>
-                <input class="style_input_text" type="text" name="server_port" id="server_port">
+                <input class="style_input_text" type="text" name="server_port" id="server_port"
+                    style="font-size: small;">
 
                 <label for="console_textarea" style="font-size: small;">Console</label>
                 <Textarea class="style_console_textarea" id="console_textarea" placeholder="placeholder"></Textarea>
             </div>
-            
+
         </fieldset>
 
 
@@ -35,81 +37,96 @@
 
             <fieldset class="style_fieldset_layer_2">
                 <legend>automatic refresh</legend>
-                <div class="grid-container-2-col-equal">
+                <div class="style_grid_container_2_col_equal">
                     <label for="radiobuttons_lights" style="font-size: small;">read config from server every:</label>
                     <div id="radiobuttons_lights">
                         <div>
-                            <input type="radio" id="lights_no_update_option" name="lights_no_update_option" value="no"
-                                checked />
+                            <input type="radio" id="lights_no_update_option" name="lights_update_option" value="no"
+                                onclick="startUpdateLights(this)" checked />
                             <label for="lights_no_update_option" style="font-size: small;">no update</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="lights_100ms_update_option" name="lights_100ms_update_option"
-                                value="100ms" />
-                            <label for="lights_100ms_update_option" style="font-size: small;">100ms</label>
+                            <input type="radio" id="lights_500ms_update_option" name="lights_update_option"
+                                value="500ms" onclick="startUpdateLights(this)" />
+                            <label for="lights_500ms_update_option" style="font-size: small;">500ms</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="lights_1s_update_option" name="lights_1s_update_option" value="1s" />
-                            <label for="lights_1s_update_option" style="font-size: small;">1s</label>
+                            <input type="radio" id="lights_3s_update_option" name="lights_update_option" value="3s"
+                                onclick="startUpdateLights(this)" />
+                            <label for="lights_3s_update_option" style="font-size: small;">3s</label>
                         </div>
 
                     </div>
 
                 </div>
-                <div class="grid-item">
-                    <button class="toggle_button" onclick="readLights()">refresh</button>
+                <div class="style_grid_item">
+                    <button class="style_toggle_button" onclick="readLights()">refresh</button>
                 </div>
             </fieldset>
 
             <fieldset class="style_fieldset_layer_2">
                 <legend>manipulate config</legend>
-                <div class="grid-container-3-col">
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">Light</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">current state</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">control</div>
+                <div class="style_grid_container_3_col">
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">Light</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">current state</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">control</div>
 
-                    <div class="grid-item">Front flasher bar</div>
-                    <div class="grid-item" id="state_front_flasher">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">amber light bar at front of vehicle</div>
+                    <div class="style_grid_item" id="state_flasher_bar_front">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_flasher_bar_front">toggle</button>
                     </div>
 
-                    <div class="grid-item">Back flasher bar</div>
-                    <div class="grid-item" id="state_back_flasher">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">amber light bar at back of vehicle</div>
+                    <div class="style_grid_item" id="state_flasher_bar_back">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_flasher_bar_back">toggle</button>
                     </div>
 
-                    <div class="grid-item">Front grill flashers</div>
-                    <div class="grid-item" id="state_grill_flasher">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">amber flashers on the back of the roof</div>
+                    <div class="style_grid_item" id="state_flasher_roof_back">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_flasher_roof_back">toggle</button>
                     </div>
 
-                    <div class="grid-item">Beacon left</div>
-                    <div class="grid-item" id="state_beacon_left">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">amber flashers in radiator grill</div>
+                    <div class="style_grid_item" id="state_flasher_grill">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_flasher_grill">toggle</button>
                     </div>
 
-                    <div class="grid-item">Beacon right</div>
-                    <div class="grid-item" id="state_beacon_right">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">rotating amber beacon left side</div>
+                    <div class="style_grid_item" id="state_beacon_left">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_beacon_left">toggle</button>
                     </div>
 
-                    <div class="grid-item">Work lights front</div>
-                    <div class="grid-item" id="state_work_lights_front">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">rotating amber beacon right side</div>
+                    <div class="style_grid_item" id="state_beacon_right">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_beacon_right">toggle</button>
                     </div>
 
-                    <div class="grid-item">Work lights back</div>
-                    <div class="grid-item" id="state_work_lights_back">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="lightsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">white working lights on the front of the roof</div>
+                    <div class="style_grid_item" id="state_work_lights_front">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_work_lights_front">toggle</button>
+                    </div>
+
+                    <div class="style_grid_item">white working lights on the back of the roof</div>
+                    <div class="style_grid_item" id="state_work_lights_back">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="lightsConfigChanged(this)"
+                            id="button_work_lights_back">toggle</button>
                     </div>
 
                 </div>
@@ -124,32 +141,33 @@
 
             <fieldset class="style_fieldset_layer_2">
                 <legend>automatic refresh</legend>
-                <div class="grid-container-2-col-equal">
+                <div class="style_grid_container_2_col_equal">
                     <label for="radiobuttons_horns" style="font-size: small;">read config from server every:</label>
                     <div id="radiobuttons_horns">
                         <div>
-                            <input type="radio" id="horns_no_update_option" name="horns_no_update_option" value="no"
-                                checked />
+                            <input type="radio" id="horns_no_update_option" name="horns_update_option" value="no"
+                                onclick="startUpdateHorns(this)" checked />
                             <label for="horns_no_update_option" style="font-size: small;">no update</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="horns_100ms_update_option" name="horns_100ms_update_option"
-                                value="100ms" />
-                            <label for="horns_100ms_update_option" style="font-size: small;">100ms</label>
+                            <input type="radio" id="horns_500ms_update_option" name="horns_update_option" value="500ms"
+                                onclick="startUpdateHorns(this)" />
+                            <label for="horns_500ms_update_option" style="font-size: small;">500ms</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="horns_1s_update_option" name="horns_1s_update_option" value="1s" />
-                            <label for="horns_1s_update_option" style="font-size: small;">1s</label>
+                            <input type="radio" id="horns_3s_update_option" name="horns_update_option" value="3s"
+                                onclick="startUpdateHorns(this)" />
+                            <label for="horns_3s_update_option" style="font-size: small;">3s</label>
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="grid-item">
-                    <button class="toggle_button" onclick="readHorns()">refresh</button>
+                <div class="style_grid_item">
+                    <button class="style_toggle_button" onclick="readHorns()">refresh</button>
                 </div>
 
             </fieldset>
@@ -158,48 +176,51 @@
             <fieldset class="style_fieldset_layer_2">
 
                 <legend>Activate groups or sequencer</legend>
-                <div class="grid-container-3-col">
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">description</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">current state</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">action</div>
+                <div class="style_grid_container_3_col">
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">description</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">current state</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">action</div>
 
-                    <div class="grid-item">thw horn group</div>
-                    <div class="grid-item" id="state_thw_group">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">thw horn group</div>
+                    <div class="style_grid_item" id="state_thw_group">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="toggleThwGroup()"
+                            id="button_thw_group">toggle</button>
                     </div>
 
-                    <div class="grid-item">all horns group</div>
-                    <div class="grid-item" id="state_all_horns">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">all horns group</div>
+                    <div class="style_grid_item" id="state_all_horns">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="toggleAllHorns()"
+                            id="button_all_horns">toggle</button>
                     </div>
 
-                    <div class="grid-item">horn melody sequencer</div>
-                    <div class="grid-item" id="state_horn_sequencer">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">horn melody sequencer</div>
+                    <div class="style_grid_item" id="state_sequencer_horns">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)"
+                            id="button_sequencer_horns">toggle</button>
                     </div>
 
-                    <div class="grid-item">horn melody selection</div>
-                    <div class="grid-item" id="selection_horn_melody">melody 0 (TBD)</div>
-                    <div class="grid-item">
+                    <div class="style_grid_item">horn melody selection</div>
+                    <div class="style_grid_item" id="selection_sequencer_melody">melody 0 (TBD)</div>
+                    <div class="style_grid_item">
 
                         <div>
-                            <input type="radio" id="selection_melody_0" name="selection_melody_0_option"
-                                value="melody 0 (TBD)" checked />
+                            <input type="radio" id="selection_melody_0" name="selection_melody" value="melody 0 (TBD)"
+                                checked  onclick="setSelectionSequencer(this)"/>
                             <label for="selection_melody_0">melody 0 (TBD)</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="selection_melody_1" name="selection_melody_1_option"
-                                value="melody 1 (TBD)" />
+                            <input type="radio" id="selection_melody_1" name="selection_melody"
+                                value="melody 1 (TBD)" onclick="setSelectionSequencer(this)"/>
                             <label for="selection_melody_1">melody 1 (TBD)</label>
                         </div>
 
                         <div>
-                            <input type="radio" id="selection_melody_2" name="selection_melody_2_option"
-                                value="melody 2 (TBD)" />
+                            <input type="radio" id="selection_melody_2" name="selection_melody"
+                                value="melody 2 (TBD)" onclick="setSelectionSequencer(this)"/>
                             <label for="selection_melody_2">melody 2 (TBD)</label>
                         </div>
                     </div>
@@ -207,64 +228,64 @@
 
             </fieldset>
             <fieldset class="style_fieldset_layer_2">
-                <legend>manipulate horns directly</legend>
-                <div class="grid-container-3-col">
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">Horn</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">current state</div>
-                    <div class="grid-item" style="font-size: medium; font-weight: bold;">control</div>
+                <legend>manipulate air horns directly</legend>
+                <div class="style_grid_container_3_col">
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">Horn</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">current state</div>
+                    <div class="style_grid_item" style="font-size: medium; font-weight: bold;">control</div>
 
-                    <div class="grid-item">THW low tone</div>
-                    <div class="grid-item" id="state_thw_low_tone">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">THW low tone</div>
+                    <div class="style_grid_item" id="state_thw_low_tone">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_thw_low_tone">toggle</button>
                     </div>
 
-                    <div class="grid-item">THW high tone</div>
-                    <div class="grid-item" id="state_thw_high_tone">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">THW high tone</div>
+                    <div class="style_grid_item" id="state_thw_high_tone">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_thw_high_tone">toggle</button>
                     </div>
 
-                    <div class="grid-item">quadruple horn</div>
-                    <div class="grid-item" id="state_quadruple_horn">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">quadruple horn</div>
+                    <div class="style_grid_item" id="state_quadruple_horn">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_quadruple_horn">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 1</div>
-                    <div class="grid-item" id="state_mel_horn_1">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 1</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_1">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_1">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 2</div>
-                    <div class="grid-item" id="state_mel_horn_2">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 2</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_2">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_2">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 3</div>
-                    <div class="grid-item" id="state_mel_horn_3">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 3</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_3">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_3">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 4</div>
-                    <div class="grid-item" id="state_mel_horn_4">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 4</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_4">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_4">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 5</div>
-                    <div class="grid-item" id="state_mel_horn_5">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 5</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_5">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_5">toggle</button>
                     </div>
 
-                    <div class="grid-item">melodie horn 6</div>
-                    <div class="grid-item" id="state_mel_horn_6">off</div>
-                    <div class="grid-item">
-                        <button class="toggle_button" onclick="hornsConfigChanged(this)">toggle</button>
+                    <div class="style_grid_item">melodiy horn 6</div>
+                    <div class="style_grid_item" id="state_melodiy_horn_6">off</div>
+                    <div class="style_grid_item">
+                        <button class="style_toggle_button" onclick="hornsConfigChanged(this)" id="button_melodiy_horn_6">toggle</button>
                     </div>
 
                 </div>
