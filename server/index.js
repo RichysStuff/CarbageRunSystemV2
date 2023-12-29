@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
+app.use(cors());
 
 /* ensure that request are in json format and that invalid request
  does not crash the server*/
@@ -147,4 +149,4 @@ app.post('/api/horns/setValue/:key/', (req, res)=>{
 const port = process.env.PORT || 3000;
 
 /*start server on port 3000 and use optional callback to signal start in console*/
-app.listen(port, ()=> console.log(`listening on port ${port}`));
+app.listen(port, '192.168.0.114', ()=> console.log(`listening on port ${port}`));
