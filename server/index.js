@@ -45,8 +45,8 @@ const horns = {thw_low_tone: '0',            // long low tone air horn
                melodiy_horn_5: '0',          // ---
                melodiy_horn_6: '0',          // shortest of melodiy air horns
                
-               horn_melody: [],              // melodiy encoded in array
-               activate_horn_melodiy: '0'};  // play melodiy in horn_melodiy field ?
+               sequencer_melody: [],         // melodiy encoded in array
+               sequencer_horns: '0'};        // acticate sequencer thats plays sequencer_melody with the air horns
 
 // Message constansts for error signaling 
 const error_str_key_not_available = 'key is not available in config';
