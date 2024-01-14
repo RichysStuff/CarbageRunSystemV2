@@ -1,10 +1,17 @@
 # CarbageRunSystemV2
 
-<img src="documentation/front_overview.jpg" alt="drawing" width="49%"/>
-<img src="documentation/front_close_up.jpg" alt="drawing" width="49%"/>
+<p align="center">
+  <img src="documentation/front_overview.jpg" width="49%"/>
+<img src="documentation/front_close_up.jpg" width="49%"/>
+</p>
 
-<video src="documentation/system_activ.mp4" width="49%" type="video/mp4" controls></video>
-<video src="documentation/back_lights_activ.mp4" width="49%" type="video/mp4" controls></video>
+
+<p align="center">
+  <img src="documentation/system_activ_shortend.gif" width=49% />
+  <img src="documentation/system_activ_side.gif" width=49% />
+  
+</p>
+<img src="documentation/back_lights_activ_shortend.gif" width=50% />
 
 ## Abstract
 Jedes Jahr findet der Carbage Run, eine der größten "Schrott" Rallys in Europa, im Spätsommer statt. 
@@ -55,7 +62,7 @@ die API lässt sich in zwei Bereiche einteilen.
 
 Die Endpunkte beider Bereiche sind gleich aufgebaut und dienen dazu die folgenden Konfigurations Objekte im Server auszulesen oder zu modifizieren.
 
-```JSON
+```json
 const lights = {flasher_bar_front: '0',  // amber Light bar front of vehicle
 		          flasher_bar_back: '0',   // amber Light bar back of vehicle
                 flasher_grill: '0',      // amber flashers in radiator grill  
@@ -101,6 +108,6 @@ Die automatische "Refresh" Funktion beider Bereiche ist eine Ausnahme, in dem Si
 
 ## Abbildung Clientseite 
 
-![](documentation/client_1.png)
-![](documentation/client_2.png)
-![](documentation/client_3.png)
+<img src="documentation/client_1.png" width=60% />
+<img src="documentation/client_2.png" width=60% />
+<img src="documentation/client_3.png" width=60% />
