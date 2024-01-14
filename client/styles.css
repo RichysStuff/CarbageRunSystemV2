@@ -23,6 +23,7 @@ body {
   gap: 2px;
   font-size: medium;
   align-content: center;
+  width: 100%;
 }
 
 .style_grid_container_3_col {
