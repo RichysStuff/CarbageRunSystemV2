@@ -62,7 +62,7 @@ die API lässt sich in zwei Bereiche einteilen.
 
 Die Endpunkte beider Bereiche sind gleich aufgebaut und dienen dazu die folgenden Konfigurations Objekte im Server auszulesen oder zu modifizieren.
 
-```json
+```javascript
 const lights = {flasher_bar_front: '0',  // amber Light bar front of vehicle
 		          flasher_bar_back: '0',   // amber Light bar back of vehicle
                 flasher_grill: '0',      // amber flashers in radiator grill  
