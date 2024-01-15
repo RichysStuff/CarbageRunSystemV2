@@ -111,3 +111,22 @@ Die automatische "Refresh" Funktion beider Bereiche ist eine Ausnahme, in dem Si
 <img src="documentation/client_1.png" width=60% />
 <img src="documentation/client_2.png" width=60% />
 <img src="documentation/client_3.png" width=60% />
+
+## Installation
+
+1. Raspberry Pie mit beliebigen Wifi netz verbinden
+    - IP - Addresse muss ggf. in `/server/index.js` angepasst werden. Standard konfiguration nutzt 192.168.0.114 und Port 3000
+
+2. Clonen von Projekt Repository in Home Verzeichnis
+    - `git clone https://github.com/RichysStuff/CarbageRunSystemV2.git`
+
+3. Installation von node js auf Raspberry Pi (Server) 
+    - [Anleitung WLW Modul](https://wlw.pages.fhnw.ch/web/01-setup/index.html)
+
+4.  Server starten
+    - `cd ~/CarbageRunSystemV2/server`
+    - `node index.js`
+
+5. Client starten
+    - `~/CarbageRunSystemV2/client/index.html` mit Browser öffnen
+    - Server adresse und Port ggf. anpassen
