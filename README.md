@@ -21,9 +21,9 @@ Jedes Jahr findet der Carbage Run, eine der größten "Schrott" Rallys in Europa
 
 Viele Teilnehmer modifizieren ihre Fahrzeuge in dem sie neben kreativen Lackierung/Folierungen auch zusätzliches Equipment wie z.B. Warnleuchten oder Nebelhörner an ihre Fahrzeug anbringen. 
 
-Die Zielsetzung des hier beschriebenen Systems ist es, eine flexible Ansteuerung des an einem Carbage Run Auto (Audi) montierten Equipment von einer  Kommadozentrale (Mittelkonsole) aber auch von einem Smartphone zu ermöglichen.
+Die Zielsetzung des hier beschriebenen Systems ist es, eine drahtlose Ansteuerung des an meinem Carbage Run Auto (Audi) montierten Equipment von der Kommadozentrale (Mittelkonsole) aber auch von einem Smartphone zu ermöglichen.
 
-Die konkret am Fahrzeug montierten Elemente sind den Folgenden Tabellen aufgelistet  
+Die zu steuerenden Elemente am Fahrzeug sind in den folgenden Tabellen aufgelistet  
 ### Lichtanlage
 | Funktion | Beschreibung | Farbe |
 | ----------- | ----------- | ----------- |
@@ -50,8 +50,8 @@ Die konkret am Fahrzeug montierten Elemente sind den Folgenden Tabellen aufgelis
 
 ## Allgemeine Funktionsweise der Applikation
 Das System verkörpert ein klassisches Server Client Model. Als Server wird ein am Dachträger montierter Raspberry eingesetzt, der neben Webserver auch als Wifi Router/Accesspoint agiert. 
-Zugriff auf den Server ist deshalb nur innerhalb des Wifi Netz möglich. 
-Als primärer Client wird ein zweiter Raspberry verwendet, der als Kommandozentrale in der Mittelkonsole des Fahrzeugs eingesetzt wird. Auf diesem wird eine Pyside2 basierte Gui Applikation eingesetzt, die die API Zugriffe steuert. Im Vergleich zur ersten Version, ist die Steuerung des System zusätzlich auch von einem weiteren mobilen Endgerät (Smartphone) möglich. Für diese Geräte ist die Webseite (Client Side) bestimmt. 
+Zugriff auf den Server ist innerhalb des Wifi Netzes möglich. 
+Als primärer Client wird ein zweiter Raspberry verwendet, der als Kommandozentrale in der Mittelkonsole des Fahrzeugs eingesetzt wird. Auf diesem wird eine Pyside2 basierte Applikation eingesetzt, die die API Zugriffe steuert. Für die Steuerung des System von einem weiteren mobilen Endgerät (Smartphone) ist die Webseite (Client Side) bestimmt. 
 
 ![](documentation/System_diagramm.drawio.svg)
 
@@ -94,15 +94,20 @@ const horns = {thw_low_tone: '0',            // long low tone air horn
 |POST|`/api/{Bereich}/setValue/:key`| schreibe neuen Wert in Variable `key` im Konfigurations Objekt|
 |POST|`/api/{Bereich}/setConfig`| überschreibt alle Wert im Konfigurations Objekt|
 
+Die APi verwenden das JSON format und sendet entweder Teilauschnitte oder das gesamte JSON Konfigurations Objekt zum Client. Gleichzeitig müssen POST Request des Client auch das selbe Format wie die hier gezeigten Konfiguration objekte aufweißen.
+
 
 ## Beschreibung des Source Codes und Funktionsweise des Clients
-Die Client seite wurde Event basiert aufgebaut. Der normale Ablauf ist wie folgt:
-1. Nutzer betätigt "toogle" bei beliebigen Element um die Konfiguration zu ändern.
-2. Client ließt aktuelle Konfiguration vom Server (single source of truth) 
+Die Client seite wurde Event basiert bzw. allein aus Callbacks aufgebaut. Der normale Ablauf ist wie folgt:
+1. Nutzer betätigt "toogle" bei beliebigen Element um die Konfiguration zu ändern. Callback / Handler funktion wird aufgerufen.
+2. Client ließt aktuelle Konfiguration vom Server (single source of truth) (GET)
 3. Client modifiziert die Konfiguration
-4. Client sendet neue Konfiguration zum Server.  
+4. Client sendet neue Konfiguration zum Server. (POST)  
 
-Die automatische "Refresh" Funktion beider Bereiche ist eine Ausnahme, in dem Sie durch ein Timer ausgelöst. Diese wird benötigt, das Änderungen von anderen Clienten nachverfolgt werden können. 
+Die automatische "Refresh" Funktion beider Bereiche ist eine Ausnahme, in dem Sie durch ein Timer ausgelöst wird. Diese wird benötigt, das Änderungen von anderen Clienten nachverfolgt werden können. 
+
+Die Steuerung ist auch mit mehreren Clients möglich, selbst wenn einer der clients schon länger kein Update durchgeführt hat. Aus dem Grund, dass bei einer Änderung immer zuerst die aktuelle Konfiguration aus dem Server gelesen wird, bevor die Änderung eingefügt wird. 
+Die Funktion dient daher allein das visuell die selbe Konfiguration auf inaktiven clients angezeigt wird, wie sie auch auf dem Server aktiv ist.
 
 ![](documentation/Funktionsablauf.drawio.svg)
 
@@ -112,9 +117,9 @@ Die automatische "Refresh" Funktion beider Bereiche ist eine Ausnahme, in dem Si
 <img src="documentation/client_2.png" width=60% />
 <img src="documentation/client_3.png" width=60% />
 
-## Installation
+## Installation/ Inbetriebnahme
 
-1. Raspberry Pie mit beliebigen Wifi netz verbinden
+1. Raspberry Pie mit beliebigen Wifi netz verbinden oder als eigenen Hotspot konfigurieren
     - IP - Addresse muss ggf. in `/server/index.js` angepasst werden. Standard konfiguration nutzt 192.168.0.114 und Port 3000
 
 2. Clonen von Projekt Repository in Home Verzeichnis
