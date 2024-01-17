@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { Mutex } = require('async-mutex');
-// const I2C = require('i2c-bus');
+// const I2C = require('i2c-bus');  Disable I2C functions until Hardware is build
 
 const mutex = new Mutex();
 // const i2c = I2C.openSync(1);
@@ -26,6 +26,7 @@ app.use(bodyParser.json({
   }
 }));
 
+// configuration objects. These represent the single source of truth
 const lights = {flasher_bar_front: '0',  // amber Light bar front of vehicle
 		          flasher_bar_back: '0',   // amber Light bar back of vehicle
                 flasher_grill: '0',      // amber flashers in radiator grill  
@@ -56,6 +57,7 @@ const response_str_update_successfull = 'value was successfully updated';
 
 
 /* get request to root of website ,  callback with request and response*/
+//TODO: implement static hosting of client side (index.html, ...)
 app.get('/', (req, res) => {
 const message_json = {message: 'Hello World'};
 res.statusCode = 200;
@@ -331,7 +333,7 @@ const intervalId = setInterval(async () => {
       release();
 
       // Update the I2C devices using the buffered objects
-      // TODO
+      // TODO: add I2C write command as soon as hardware side is build an register addresses are defined
 
 
    } catch (error) {
@@ -345,10 +347,11 @@ const intervalId = setInterval(async () => {
  }, 100);
 
 
-/* replace hardcoded portnumber if environmental variable is assigned externally else 3000*/
+/* use environmental variable PORT if assigned externally else use 3000*/
 const port = process.env.PORT || 3000;
 
 /*start server and use optional callback to signal start in console*/
+// TODO: read ip address from wlan0 interface or ensure that static ip is configured else this might crash
 app.listen(port, '192.168.0.114', ()=> console.log(`listening on port ${port}`));
 
 
