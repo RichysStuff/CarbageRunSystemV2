@@ -6,7 +6,6 @@ const horn_melody_1 = [3, 4, 5];   // TODO: replace with real sequence
 const horn_melody_2 = [6, 7, 8];   // TODO: replace with real sequence
 
 async function startUpdateLights(source) {
-    // check if an interval has already been set up
     let interval_ms = 1000;
     switch (source.id) {
         case 'lights_no_update_option':
@@ -25,6 +24,7 @@ async function startUpdateLights(source) {
             break;
     }
 
+    // start, restart or stop Timer 
     if (interval_ms != 0) {
         stopUpdateLights();
         interval_Timer_ID_update_lights = setInterval(readLights, interval_ms);
@@ -34,7 +34,6 @@ async function startUpdateLights(source) {
 }
 
 async function startUpdateHorns(source) {
-    // check if an interval has already been set up
     let interval_ms = 1000;
     switch (source.id) {
         case 'horns_no_update_option':
@@ -53,6 +52,7 @@ async function startUpdateHorns(source) {
             break;
     }
 
+    // start, restart or stop Timer
     if (interval_ms != 0) {
         stopUpdateHorns();
         interval_Timer_ID_update_horns = setInterval(readHorns, interval_ms);
@@ -100,11 +100,13 @@ async function setSelectionSequencer(source) {
 
 
 async function stopUpdateLights() {
+    // stop Timer
     clearInterval(interval_Timer_ID_update_lights);
     interval_Timer_ID_update_lights = null;
 }
 
 async function stopUpdateHorns() {
+    // stop Timer
     clearInterval(interval_Timer_ID_update_horns);
     interval_Timer_ID_update_horns = null;
 }
@@ -173,6 +175,7 @@ async function toggleThwGroup() {
 }
 
 async function updateGuiThwGroup(){
+    // update css based on value
     document.getElementById('state_thw_group').className = (document.getElementById('state_thw_group').innerHTML == 'off' ? 'style_off_state' : 'style_activ_state'); 
 }
 
@@ -207,10 +210,12 @@ async function toggleAllHorns(){
 }
 
 async function updateGuiAllHorns(){
+    // update css based on value
     document.getElementById('state_all_horns').className = (document.getElementById('state_all_horns').innerHTML == 'off' ? 'style_off_state' : 'style_activ_state'); 
 }
 
 async function getRequest(target_addr) {
+    //perform API get request
     console.log('request to: ')
     console.log(target_addr);
     const response = await fetch(target_addr, {
@@ -230,6 +235,7 @@ async function getRequest(target_addr) {
 }
 
 async function postRequestJSON(target_addr, data) {
+    //perform API post request
     try {
         console.log('request to: ')
         console.log(target_addr);
@@ -251,6 +257,7 @@ async function postRequestJSON(target_addr, data) {
 }
 
 async function readLights() {
+    //read current lights configuration from server and update client
     const ip_addr = document.getElementById("server_address").value;
     const port = document.getElementById("server_port").value;
 
@@ -258,6 +265,7 @@ async function readLights() {
     const result = await getRequest(target_addr);
 
     try {
+        //Update client with new values
         for (const [key, value] of Object.entries(result)) {
             if (value == "1") {
                 document.getElementById('state_' + key).innerText = 'activ';
@@ -277,6 +285,7 @@ async function readLights() {
 }
 
 async function readHorns() {
+    //read current horns configuration from server and update client
     const ip_addr = document.getElementById("server_address").value;
     const port = document.getElementById("server_port").value;
 
@@ -284,7 +293,9 @@ async function readHorns() {
     const result = await getRequest(target_addr);
 
     try {
+        //Update client with new values
         for (const [key, value] of Object.entries(result)) {
+            //mask special data fields
             if (key != 'sequencer_melody') {
                 if (value == "1") {
                     document.getElementById('state_' + key).innerText = 'activ';
@@ -303,11 +314,6 @@ async function readHorns() {
     return result;
 }
 
-
-
-
-
-
-
+// set standard values for Server connection
 document.getElementById("server_address").value = "192.168.0.114";
 document.getElementById("server_port").value = "3000";
