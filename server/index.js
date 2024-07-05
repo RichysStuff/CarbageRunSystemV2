@@ -415,7 +415,6 @@ const intervalId = setInterval(async () => {
 				}else{
 					combined_offset = 8+offset;
 				};
-				
 				if(i2c_addr == i2c_device_addr_0){
 					dev_0_data |= curr_value<<combined_offset;
 				}else{
