@@ -8,68 +8,68 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(cors());
 
-const i2c_device_addr_0 = 0x21;
-const i2c_device_addr_1 = 0x20;
+const i2c_dev_addr_0 = 0x21;
+const i2c_dev_addr_1 = 0x20;
 
-const i2c_device_config_reg_adr_port_0 = 0x6;
-const i2c_device_config_reg_adr_port_1 = 0x7;
-const i2c_device_output_reg_adr_port_0 = 0x2;
-const i2c_device_output_reg_adr_port_1 = 0x3;
+const i2c_dev_config_reg_addr_port_0 = 0x6;
+const i2c_dev_config_reg_addr_port_1 = 0x7;
+const i2c_dev_output_reg_addr_port_0 = 0x2;
+const i2c_dev_output_reg_addr_port_1 = 0x3;
 
-const channel_to_i2c_map = {	ch0: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 5],  // device addr | port number | bit offset
-                  	    	ch1: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 4],
-				ch2: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 3],  
-                		ch3: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 2],    
-                		ch4: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 1],   
-   				ch5: [i2c_device_addr_0, i2c_device_output_reg_adr_port_1, 0],  
-             			ch6: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 7],  
-                		ch7: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 6],  
-                		ch8: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 5],  
-                		ch9: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 4],  
-				ch10: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 3], 
-                		ch11: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 2], 
-               			ch12: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 1], 
-               			ch13: [i2c_device_addr_0, i2c_device_output_reg_adr_port_0, 0],  
-               			ch14: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 7], 
-               			ch15: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 6], 
-               			ch16: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 5], 
-               			ch17: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 4], 
-				ch18: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 3], 
-				ch19: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 2],  
-				ch20: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 1],  
-				ch21: [i2c_device_addr_1, i2c_device_output_reg_adr_port_1, 0],  
-				ch22: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 7],  
-				ch23: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 6],  
-				ch24: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 5],  
-				ch25: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 4],  
-				ch26: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 3],  
-				ch27: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 2],  
-				ch28: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 1],  
-				ch29: [i2c_device_addr_1, i2c_device_output_reg_adr_port_0, 0]};
+const channel_to_i2c_map = {	ch0: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 5],  // device addr | port number | bit offset
+            ch1: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 4],
+            ch2: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 3],  
+            ch3: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 2],    
+            ch4: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 1],   
+            ch5: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, 0],  
+            ch6: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 7],  
+            ch7: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 6],  
+            ch8: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 5],  
+            ch9: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 4],  
+            ch10: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 3], 
+            ch11: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 2], 
+            ch12: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 1], 
+            ch13: [i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, 0],  
+            ch14: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 7], 
+            ch15: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 6], 
+            ch16: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 5], 
+            ch17: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 4], 
+				ch18: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 3], 
+				ch19: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 2],  
+				ch20: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 1],  
+				ch21: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, 0],  
+				ch22: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 7],  
+				ch23: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 6],  
+				ch24: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 5],  
+				ch25: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 4],  
+				ch26: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 3],  
+				ch27: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 2],  
+				ch28: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 1],  
+				ch29: [i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, 0]};
 
 const equip_to_ch_map = {flasher_bar_front: 'ch0',  	// amber Light bar front of vehicle
-                        flasher_bar_front_mode: 'ch1', 
-			flasher_bar_back: 'ch2',   	// amber Light bar back of vehicle
-			flasher_bar_back_mode: 'ch3',
-                	flasher_grill: 'ch4',      	// amber flashers in radiator grill
-			flasher_grill_mode: 'ch5',  
-			flasher_roof_back_0: 'ch6',
-			flasher_roof_back_1: 'ch7',
-			flasher_roof_back_2: 'ch8',
-			flasher_roof_back_3: 'ch9',
-                	beacon_left: 'ch10',        	// rotating amber beacon left side
-                	beacon_right: 'ch11',       // rotating amber beacon right side
-                	work_lights_front: 'ch12',  // white working lights on the front of the roof
-                	work_lights_back: 'ch13',  // white working lights on the back of the roof
-   			thw_low_tone: 'ch14',            // long low tone air horn
-                 	thw_high_tone: 'ch15',           // long high tone air horn
-               		quadruple_horn: 'ch16',          // quadruple air horn (train horn sound)
-               		melodiy_horn_1: 'ch17',          // longest of melodiy air horns 
-               		melodiy_horn_2: 'ch18',          // ---
-               		melodiy_horn_3: 'ch19',          // ---
-               		melodiy_horn_4: 'ch20',          // ---
-               		melodiy_horn_5: 'ch21',          // ---
-               		melodiy_horn_6: 'ch22'};          // shortest of melodiy air horns 
+               flasher_bar_front_mode: 'ch1', 
+			      flasher_bar_back: 'ch2',   	// amber Light bar back of vehicle
+			      flasher_bar_back_mode: 'ch3',
+               flasher_grill: 'ch4',      	// amber flashers in radiator grill
+               flasher_grill_mode: 'ch5',  
+               flasher_roof_back_0: 'ch6',
+               flasher_roof_back_1: 'ch7',
+               flasher_roof_back_2: 'ch8',
+               flasher_roof_back_3: 'ch9',
+               beacon_left: 'ch10',        	// rotating amber beacon left side
+               beacon_right: 'ch11',       // rotating amber beacon right side
+               work_lights_front: 'ch12',  // white working lights on the front of the roof
+               work_lights_back: 'ch13',  // white working lights on the back of the roof
+   			   thw_low_tone: 'ch14',            // long low tone air horn
+               thw_high_tone: 'ch15',           // long high tone air horn
+               quadruple_horn: 'ch16',          // quadruple air horn (train horn sound)
+               melodiy_horn_1: 'ch17',          // longest of melodiy air horns 
+               melodiy_horn_2: 'ch18',          // ---
+               melodiy_horn_3: 'ch19',          // ---
+               melodiy_horn_4: 'ch20',          // ---
+               melodiy_horn_5: 'ch21',          // ---
+               melodiy_horn_6: 'ch22'};          // shortest of melodiy air horns 
 
 
 /* ensure that request are in json format and that invalid requests
@@ -388,87 +388,87 @@ const intervalId = setInterval(async () => {
 
    /* prevent race conditions between this function and api calls*/
    try {
-      	const release = await mutex.acquire();
-         
-      	/* create independant copies that are used to update the shift registers over I2C*/
-      	const lights_buffered = JSON.parse(JSON.stringify(lights));
-      	const horns_buffered = JSON.parse(JSON.stringify(horns));;
+      const release = await mutex.acquire();
       
-      	release();
+      /* create independant copies that are used to update the shift registers over I2C*/
+      const lights_buffered = JSON.parse(JSON.stringify(lights));
+      const horns_buffered = JSON.parse(JSON.stringify(horns));;
+   
+      release();
 
-      	// Update the I2C devices using the buffered objects
-      	// TODO: add I2C write command as soon as hardware side is build an register addresses are defined
-      	const dev_0_data = 0;
-      	const dev_1_data = 0;
-	
-	dev_0_data = 0;
-	dev_1_data = 0;
-	for (const light_key in lights_buffered){
-      		const curr_value = lights_buffered[light_key]; 
-		if (equip_to_ch_map.hasOwnProperty(light_key)){
-	          	const connected_ch = equip_to_ch_map[light_key];
-			if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
-				const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
-				const combined_offset = 0;
-				if(port_addr == i2c_device_output_reg_adr_port_0){
-					combined_offset = offset;
-				}else{
-					combined_offset = 8+offset;
-				};
-				if(i2c_addr == i2c_device_addr_0){
-					dev_0_data |= curr_value<<combined_offset;
-				}else{
-					dev_1_data |= curr_value<<combined_offset;
-				};
-	      ¶		}else{
-				console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
-			}
-	        }else{
-			console.log(`ERROR: light_key: ${light_key} not found in lights_buffered`);
-		}
-	}
+      // Update the I2C devices using the buffered objects
+      // TODO: add I2C write command as soon as hardware side is build an register addresses are defined
+      const dev_0_data = 0;
+      const dev_1_data = 0;
 
-	for (const horn_key in horns_buffered){
-                const curr_value = horns_buffered[horn_key]; 
-                if (equip_to_ch_map.hasOwnProperty(horn_key)){
-                        const connected_ch = equip_to_ch_map[horn_key];
-                        if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
-                                const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];
-                                const combined_offset = 0;
-                                if(port_addr == i2c_device_output_reg_adr_port_0){
-                                        combined_offset = offset;
-                                }else{
-                                        combined_offset = 8+offset;
-                                };
+      dev_0_data = 0;
+      dev_1_data = 0;
+      for (const light_key in lights_buffered){
+               const curr_value = lights_buffered[light_key]; 
+         if (equip_to_ch_map.hasOwnProperty(light_key)){
+                  const connected_ch = equip_to_ch_map[light_key];
+            if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
+               const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
+               const combined_offset = 0;
+               if(port_addr == i2c_dev_output_reg_addr_port_0){
+                  combined_offset = offset;
+               }else{
+                  combined_offset = 8+offset;
+               };
+               if(i2c_addr == i2c_dev_addr_0){
+                  dev_0_data |= curr_value<<combined_offset;
+               }else{
+                  dev_1_data |= curr_value<<combined_offset;
+               };
+            }else{
+               console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
+            }
+            }else{
+            console.log(`ERROR: light_key: ${light_key} not found in lights_buffered`);
+         }
+      }
 
-                                if(i2c_addr == i2c_device_addr_0){
-                                        dev_0_data |= curr_value<<combined_offset;
-                                }else{
-                                        dev_1_data |= curr_value<<combined_offset;
-                                };
-                        }else{
-                                console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
-                        }
-                }else{
-                        console.log(`ERROR: horn_key: ${horn_key} not found in horns_buffered`);
-                }
-        }
+      for (const horn_key in horns_buffered){
+                  const curr_value = horns_buffered[horn_key]; 
+                  if (equip_to_ch_map.hasOwnProperty(horn_key)){
+                           const connected_ch = equip_to_ch_map[horn_key];
+                           if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
+                                 const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];
+                                 const combined_offset = 0;
+                                 if(port_addr == i2c_dev_output_reg_addr_port_0){
+                                          combined_offset = offset;
+                                 }else{
+                                          combined_offset = 8+offset;
+                                 };
 
-	
-	i2c1= I2C.openSync(1);
-	if(startup_latch != 1){
-		i2c1.writeByteSync(i2c_device_addr_0, i2c_device_config_reg_adr_port_0, 0); // setup ports as output
-		i2c1.writeByteSync(i2c_device_addr_0, i2c_device_config_reg_adr_port_1, 0);
-		i2c1.writeByteSync(i2c_device_addr_1, i2c_device_config_reg_adr_port_0, 0);  
-        	i2c1.writeByteSync(i2c_device_addr_1, i2c_device_config_reg_adr_port_1, 0);
-		startup_latch = 1;
-	}
+                                 if(i2c_addr == i2c_dev_addr_0){
+                                          dev_0_data |= curr_value<<combined_offset;
+                                 }else{
+                                          dev_1_data |= curr_value<<combined_offset;
+                                 };
+                           }else{
+                                 console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
+                           }
+                  }else{
+                           console.log(`ERROR: horn_key: ${horn_key} not found in horns_buffered`);
+                  }
+         }
 
-	i2c1.writeByteSync(i2c_device_addr_0, i2c_device_output_reg_adr_port_0, dev_0_data & 0xFF); //write out new data
-	i2c1.writeByteSync(i2c_device_addr_0, i2c_device_output_reg_adr_port_1, (dev_0_data >> 8) & 0xFF);
-	i2c1.writeByteSync(i2c_device_addr_1, i2c_device_output_reg_adr_port_0, dev_1_data & 0xFF);
-        i2c1.writeByteSync(i2c_device_addr_1, i2c_device_output_reg_adr_port_1, (dev_1_data >> 8) & 0xFF);
-      	i2c1.closeSync();
+      
+      const i2c1 = I2C.openSync(1);
+      if(startup_latch != 1){
+         i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_config_reg_addr_port_0, 0); // setup ports as output
+         i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_config_reg_addr_port_1, 0);
+         i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_config_reg_addr_port_0, 0);  
+            i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_config_reg_addr_port_1, 0);
+         startup_latch = 1;
+      }
+
+      i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_output_reg_addr_port_0, dev_0_data & 0xFF); //write out new data
+      i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_output_reg_addr_port_1, (dev_0_data >> 8) & 0xFF);
+      i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_output_reg_addr_port_0, dev_1_data & 0xFF);
+         i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_output_reg_addr_port_1, (dev_1_data >> 8) & 0xFF);
+            i2c1.closeSync();
 
    } catch (error) {
       if(release){
