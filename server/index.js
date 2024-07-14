@@ -403,11 +403,9 @@ const intervalId = setInterval(async () => {
 
       // Update the I2C devices using the buffered objects
       // TODO: add I2C write command as soon as hardware side is build an register addresses are defined
-      const dev_0_data = 0;
-      const dev_1_data = 0;
+      let dev_0_data = 0;
+      let dev_1_data = 0;
 
-      dev_0_data = 0;
-      dev_1_data = 0;
       for (const light_key in lights_buffered){
 	const curr_value = lights_buffered[light_key]; 
 	if (equip_to_ch_map.hasOwnProperty(light_key)){
