@@ -479,9 +479,7 @@ const intervalId = setInterval(async () => {
             i2c1.closeSync();
 
    } catch (error) {
-      res.statusCode = 500;
-      res.json({ message: error_str_internal_server_error });
-
+      
       console.error(error_str_internal_server_error, error);
    }finally {
         if (release) release(); // Ensure release is called if defined
