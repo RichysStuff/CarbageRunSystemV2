@@ -2,11 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const { Mutex } = require('async-mutex');
 const I2C = require('i2c-bus'); //  Disable I2C functions until Hardware is build
+const path = require('path');
 
 const mutex = new Mutex();
 const app = express();
 const bodyParser = require('body-parser');
 app.use(cors());
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 const i2c_dev_addr_0 = 0x21;
 const i2c_dev_addr_1 = 0x20;
@@ -120,11 +124,12 @@ const response_str_update_successfull = 'value was successfully updated';
 
 /* get request to root of website ,  callback with request and response*/
 //TODO: implement static hosting of client side (index.html, ...)
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
 const message_json = {message: 'Hello World'};
 res.statusCode = 200;
 res.json(message_json);
 });
+*/
 
 /*get current configuration*/
 app.get('/api/lights/getAll', async (req, res) =>{
@@ -460,7 +465,8 @@ const intervalId = setInterval(async () => {
          i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_config_reg_addr_port_0, 0); // setup ports as output
          i2c1.writeByteSync(i2c_dev_addr_0, i2c_dev_config_reg_addr_port_1, 0);
          i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_config_reg_addr_port_0, 0);  
-            i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_config_reg_addr_port_1, 0);
+         i2c1.writeByteSync(i2c_dev_addr_1, i2c_dev_config_reg_addr_port_1, 0);
+         console.log(`wrote configuration. all ports used as outputs`);
          startup_latch = 1;
       }
 
