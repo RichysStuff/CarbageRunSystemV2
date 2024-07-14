@@ -414,22 +414,22 @@ const intervalId = setInterval(async () => {
                	   const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
                	   let combined_offset = 0;
                 
-                if(port_addr == i2c_dev_output_reg_addr_port_0){
-          		combined_offset = offset;
-	       }else{
-	          combined_offset = 8+offset;
-	       };
+                   if(port_addr == i2c_dev_output_reg_addr_port_0){
+          	      combined_offset = offset;
+		   }else{
+		      combined_offset = 8+offset;
+		   };
        
-               if(i2c_addr == i2c_dev_addr_0){
-                  dev_0_data |= curr_value<<combined_offset;
-               }else{
-                  dev_1_data |= curr_value<<combined_offset;
-               };
+		   if(i2c_addr == i2c_dev_addr_0){
+		      dev_0_data |= curr_value<<combined_offset;
+		   }else{
+		      dev_1_data |= curr_value<<combined_offset;
+               	   };
+            	}else{
+               		console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map. Keys contained were: ${Object.keys(channel_to_i2c_map)}`);
+            	}
             }else{
-               console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
-            }
-            }else{
-            console.log(`ERROR: light_key: ${light_key} not found in lights_buffered`);
+            console.log(`ERROR: light_key: ${light_key} not found in lights_buffered. Keys contained were: ${Object.keys(lights_buffered)}`);
          }
       }
 
@@ -452,10 +452,10 @@ const intervalId = setInterval(async () => {
                                           dev_1_data |= curr_value<<combined_offset;
                                  };
                            }else{
-                                 console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map`);
+                                 console.log(`ERROR: connected_ch: ${connected_ch} not found in channel_to_i2c_map. Keys contained were: ${Object.keys(channel_to_i2c_map)}`);
                            }
                   }else{
-                           console.log(`ERROR: horn_key: ${horn_key} not found in horns_buffered`);
+                           console.log(`ERROR: horn_key: ${horn_key} not found in horns_buffered. Keys contained were: ${Object.keys(horns_buffered)}`);
                   }
          }
 
