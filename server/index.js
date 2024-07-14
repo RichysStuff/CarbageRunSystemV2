@@ -387,7 +387,7 @@ app.post('/api/horns/setValue/:key/', async (req, res) =>{
 });
 
 
-const startup_latch = 0;
+let startup_latch = 0;
 //runtime of System. This is used to update the peripheries (shift registers) over an I2C connection.
 const intervalId = setInterval(async () => {
    let release;
@@ -412,7 +412,7 @@ const intervalId = setInterval(async () => {
         	const connected_ch = equip_to_ch_map[light_key];
             	if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
                	   const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
-               	   const combined_offset = 0;
+               	   let combined_offset = 0;
                 
                 if(port_addr == i2c_dev_output_reg_addr_port_0){
           		combined_offset = offset;
@@ -439,7 +439,7 @@ const intervalId = setInterval(async () => {
                            const connected_ch = equip_to_ch_map[horn_key];
                            if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
                                  const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];
-                                 const combined_offset = 0;
+                                 let combined_offset = 0;
                                  if(port_addr == i2c_dev_output_reg_addr_port_0){
                                           combined_offset = offset;
                                  }else{
