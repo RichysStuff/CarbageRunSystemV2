@@ -390,10 +390,10 @@ app.post('/api/horns/setValue/:key/', async (req, res) =>{
 const startup_latch = 0;
 //runtime of System. This is used to update the peripheries (shift registers) over an I2C connection.
 const intervalId = setInterval(async () => {
-
+   let release;
    /* prevent race conditions between this function and api calls*/
    try {
-      const release = await mutex.acquire();
+      release = await mutex.acquire();
       
       /* create independant copies that are used to update the shift registers over I2C*/
       const lights_buffered = JSON.parse(JSON.stringify(lights));
@@ -409,17 +409,19 @@ const intervalId = setInterval(async () => {
       dev_0_data = 0;
       dev_1_data = 0;
       for (const light_key in lights_buffered){
-               const curr_value = lights_buffered[light_key]; 
-         if (equip_to_ch_map.hasOwnProperty(light_key)){
-                  const connected_ch = equip_to_ch_map[light_key];
-            if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
-               const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
-               const combined_offset = 0;
-               if(port_addr == i2c_dev_output_reg_addr_port_0){
-                  combined_offset = offset;
-               }else{
-                  combined_offset = 8+offset;
-               };
+	const curr_value = lights_buffered[light_key]; 
+	if (equip_to_ch_map.hasOwnProperty(light_key)){
+        	const connected_ch = equip_to_ch_map[light_key];
+            	if(channel_to_i2c_map.hasOwnProperty(connected_ch)){
+               	   const [i2c_addr, port_addr, offset] = channel_to_i2c_map[connected_ch];				
+               	   const combined_offset = 0;
+                
+                if(port_addr == i2c_dev_output_reg_addr_port_0){
+          		combined_offset = offset;
+	       }else{
+	          combined_offset = 8+offset;
+	       };
+       
                if(i2c_addr == i2c_dev_addr_0){
                   dev_0_data |= curr_value<<combined_offset;
                }else{
@@ -477,11 +479,12 @@ const intervalId = setInterval(async () => {
             i2c1.closeSync();
 
    } catch (error) {
-      if(release){
-         release();
-      }
+      res.statusCode = 500;
+      res.json({ message: error_str_internal_server_error });
 
       console.error(error_str_internal_server_error, error);
+   }finally {
+        if (release) release(); // Ensure release is called if defined
    }
 
  }, 100);
