@@ -406,7 +406,7 @@ const intervalId = setInterval(async () => {
       let dev_0_data = 0;
       let dev_1_data = 0;
 
-      for (const light_key in lights_buffered){
+      for (const light_key in Object.keys(lights_buffered)){
 	const curr_value = lights_buffered[light_key]; 
 	if (equip_to_ch_map.hasOwnProperty(light_key)){
         	const connected_ch = equip_to_ch_map[light_key];
@@ -433,7 +433,7 @@ const intervalId = setInterval(async () => {
          }
       }
 
-      for (const horn_key in horns_buffered){
+      for (const horn_key in Object.keys(horns_buffered)){
                   const curr_value = horns_buffered[horn_key]; 
                   if (equip_to_ch_map.hasOwnProperty(horn_key)){
                            const connected_ch = equip_to_ch_map[horn_key];
